@@ -1,9 +1,9 @@
 let tabledata = document.getElementById('tabledata')
 
-fetch("https://iot20-fa.azurewebsites.net/api/GetAllFromCosmosDb")
+fetch("https://iot20ahmed.azurewebsites.net/api/GetAllDataFromCosmosDB?")
 .then(res => res.json())
 .then(data => {
     for(let row of data) {
-        tabledata.innerHTML += `<tr><td>${row.id}</td><td>${row.deviceId}</td><td>${row.ts}</td><td>${row.temp}</td><td>${row.hum}</td>`
+        tabledata.innerHTML += `<tr><td>${row.Id}</td><td>${row.deviceId}</td><td>${row.ts}</td><td>${row.temp}</td><td>${row.hum}</td>`
     }
 })

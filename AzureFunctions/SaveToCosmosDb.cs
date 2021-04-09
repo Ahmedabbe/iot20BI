@@ -15,14 +15,15 @@ namespace AzureFunctions
 
         [FunctionName("SaveToCosmosDb")]
         public static void Run([IoTHubTrigger("messages/events", Connection = "IotHubConnection", ConsumerGroup = "cosmosdb")]EventData message, 
-            [CosmosDB(databaseName:"iot20ahmedcosmosdb", 
-            collectionName:"Messages", 
-            ConnectionStringSetting ="CosmosDbConnection",
-            CreateIfNotExists = true
+            [CosmosDB(
+                databaseName:"iot20ahmedcosmosdb", 
+                collectionName:"Messages", 
+                ConnectionStringSetting ="CosmosDbConnection",
+                CreateIfNotExists = true
             )]out dynamic cosmos,
             ILogger log)
         {
-            log.LogInformation($"C# IoT Hub trigger function processed a message: {Encoding.UTF8.GetString(message.Body.Array)}");
+            log.LogInformation($"Incomming message: {Encoding.UTF8.GetString(message.Body.Array)}");
 
             cosmos = Encoding.UTF8.GetString(message.Body.Array);
         }

@@ -11,7 +11,7 @@ char* pass = "KompIS123";
 char *conn = "HostName=AhmedAlhasaniIOT20.azure-devices.net;DeviceId=esp32;SharedAccessKey=rEQbiEEJYH0BQW+Y0Y+9mbxcs27f1n16SQpEB49nP7o=";
 
 bool messagePending = false;
-int interval = 1000;
+int interval = 5000;
 unsigned long prevMillis = 0;
 time_t epochTime;
 
@@ -38,15 +38,16 @@ void loop() {
 
       float temperature = dht.readTemperature();
       float humidity = dht.readHumidity();
-
-      if(!(std::isnan(temperature)) && !(std::isnan(humidity)))  {
+      //if(!(std::isnan(temperature)) && !(std::isnan(humidity)))  
+      if(temperature != 0 && humidity != 0)  {
         char payload[256];
         
         DynamicJsonDocument doc(sizeof(payload));
+        doc["type"] = "dht";
         doc["deviceId"] = "esp32";
-        doc["ts"] = epochTime;
-        doc["temp"] = temperature;
-        doc["hum"] = humidity;
+        doc["epochTime"] = epochTime;
+        doc["temperature"] = temperature;
+        doc["humidity"] = humidity;
         serializeJson(doc, payload);
         
         sendMessage(payload);       
