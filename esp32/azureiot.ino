@@ -16,6 +16,7 @@ void sendMessage(char *payload) {
   MAP_HANDLE properties = IoTHubMessage_Properties(message);
   Map_Add(properties, "name", "Ahmed");
   Map_Add(properties, "school", "Nackademin");
+  
 
   if(IoTHubClient_LL_SendEventAsync(deviceClient, message, sendCallback, NULL) == IOTHUB_CLIENT_OK) {
     messagePending = true;
